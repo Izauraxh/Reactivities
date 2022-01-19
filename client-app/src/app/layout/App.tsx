@@ -1,20 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import {Activity} from '../models/activity';
 import NavBar from '../layout/NavBar';
+import LoadingComponents from '../layout/LoadingComponents';
 import ActivityDashboard from '../../features/activities/dashboard/ActivityDashboard';
-import axios from 'axios';
+import agent from '../api/agent';
 import { Container } from 'semantic-ui-react';
 import {v4 as uuid} from 'uuid';
+
+
 
 
 function App() {
   const[activities,setActivities] = useState<Activity[]>([]);
   const[selectedActivity,setSelectedActivity] = useState<Activity| undefined>(undefined);
   const[editMode,setEditMode] = useState(false);
+  const[loading,setLoading] = useState(true);
+
   useEffect(()=> {
-    axios.get<Activity[]>('https://localhost:44390/api/activities').then( response=> {
-      console.log(response);
-      setActivities(response.data);
+    agent.Activities.list().then( response=> {
+      let activities : Activity[] = [];
+      response.forEach(activity => {
+        activity.date=activity.date.split('T')[0];
+        activities.push(activity);
+      } )
+      setActivities(response);
+      setLoading(false);
     })
   }, [])
 
@@ -46,7 +56,7 @@ function App() {
   function handleDeleteActivity(id: string){
     setActivities([...activities.filter(x=>x.id !== id)])
   }
-
+ if(loading) return <LoadingComponents content='Loading app'/>
   return (
     <>
       <NavBar openForm={handleFormOpen}/>
