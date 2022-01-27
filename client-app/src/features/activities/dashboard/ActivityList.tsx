@@ -18,7 +18,6 @@ export default function ActivityList({ activities, selectActivity, deleteActivit
     return (
         <Segment>
             <Item.Group divided>
-
                 {activities.map(activity => (
                     <Item key={activity.id}>
                         <Item.Content>
@@ -39,7 +38,6 @@ export default function ActivityList({ activities, selectActivity, deleteActivit
                                 <Label basic content={activity.category}></Label>
                             </Item.Extra>
                         </Item.Content>
-
                     </Item>
                 ))}
             </Item.Group>
