@@ -5,7 +5,7 @@ import { Activity } from "../models/activity";
 export default class ActivityStore {
 
     activities: Activity[] = [];
-    selectedactivity: Activity | null = null;
+    selectedactivity: Activity | undefined = undefined;
     editMode = false;
     loading = false;
     loadingInitial = false;
@@ -15,31 +15,37 @@ export default class ActivityStore {
     }
 
     loadActivities = async () => {
-        this.loadingInitial = true;
+        this.setLoadingInitial(true);
         try {
             const activities = await agent.Activities.list();
-            runInAction(() => {
-                activities.forEach(activity => {
-                    activity.date = activity.date.split('T')[0];
-                    this.activities.push(activity);
-                })
-                this.loadingInitial = false;
+
+            activities.forEach(activity => {
+                activity.date = activity.date.split('T')[0];
+                this.activities.push(activity);
             })
-
-
+            this.setLoadingInitial(false);
         }
         catch (error) {
             console.log(error)
-            runInAction(()=>{
-                     this.loadingInitial = false; 
-            })
-      
+            this.setLoadingInitial(false);
+
         }
     }
-    setLoadingActivity(){
-        
+    setLoadingInitial = (state: boolean) => {
+        this.loadingInitial = state;
     }
-
-
+    selectActivity =(id:string) =>{
+        this.selectedactivity = this.activities.find(a => a.id===id)
+    }
+    cancelSelectedActivity = () => {
+        this.selectedactivity=undefined;
+    }
+    openForm = (id? : string) => {
+        id ? this.selectActivity(id) : this.cancelSelectedActivity();
+        this.editMode=true;
+    }
+    closeForm(){
+        this.editMode=false;
+    }
 
 }
