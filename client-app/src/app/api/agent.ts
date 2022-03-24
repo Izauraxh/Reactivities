@@ -7,7 +7,7 @@ const sleep = (delay: number) => {
     })
 }
 
-axios.defaults.baseURL = 'https://localhost:44390/api';
+axios.defaults.baseURL = 'http://localhost:5000/api';//'https://localhost:44390/api';
 
 axios.interceptors.response.use(async response => {
     try {
