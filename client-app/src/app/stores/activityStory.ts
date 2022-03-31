@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction } from "mobx";
+import { objectPrototype } from "mobx/dist/internal";
 import agent from "../api/agent";
 import { Activity } from "../models/activity";
 
@@ -19,10 +20,18 @@ export default class ActivityStore {
 
     get activitiesByDate() {
         return Array.from(this.activityRegistry.values()).sort((a, b) =>
-         Date.parse(a.date) - Date.parse(b.date))
+            Date.parse(a.date) - Date.parse(b.date))
+    }
+    get groupedActivities() {
+        return Object.entries(this.activitiesByDate.reduce((activities, activity) => {
+            const date = activity.date;
+            activities[date] = activities[date] ? [...activities[date], activity] : [activity];
+            return activities;
+        }, {} as { [key: string]: Activity[] })
+        )
     }
     loadActivities = async () => {
-        this.loadingInitial=true;
+        this.loadingInitial = true;
         try {
             const activities = await agent.Activities.list();
 
@@ -47,10 +56,10 @@ export default class ActivityStore {
             try {
                 activity = await agent.Activities.details(id);
                 this.setActivity(activity);
-                runInAction(()=>{
-                     this.selectedactivity=activity;
+                runInAction(() => {
+                    this.selectedactivity = activity;
                 })
-               
+
                 this.setLoadingInitial(false);
                 return activity;
             }
@@ -71,9 +80,9 @@ export default class ActivityStore {
     setLoadingInitial = (state: boolean) => {
         this.loadingInitial = state;
     }
-   
+
     createActivity = async (activity: Activity) => {
-        this.loading = true;      
+        this.loading = true;
         try {
             await agent.Activities.create(activity);
             runInAction(() => {

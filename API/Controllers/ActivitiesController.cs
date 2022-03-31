@@ -19,6 +19,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Activity>>> GetActivities()
         {
+           
             return await Mediator.Send(new List.Query());
         }
         /// <summary>
@@ -51,5 +52,6 @@ namespace API.Controllers
            
             return Ok(await Mediator.Send(new Delete.Command { Id = id }));
         }
+     
     }
 }
