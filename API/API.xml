@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>API</name>
+    </assembly>
+    <members>
+        <member name="M:API.Controllers.ActivitiesController.GetActivities">
+            <summary>
+            Gets all activities
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.ActivitiesController.GetActivity(System.Guid)">
+            <summary>
+            Get an activity with id 
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.ActivitiesController.CreateAcitivity(Domain.Activity)">
+            <summary>
+            Creates a new activity
+            </summary>
+            <param name="activity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.ActivitiesController.EditActivity(System.Guid,Domain.Activity)">
+            <summary>
+            Update an activity
+            </summary>
+            <param name="id"></param>
+            <param name="activity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.ActivitiesController.DeleteActivity(System.Guid)">
+            <summary>
+            Delete an activity
+            </summary>
+            <param name="id">Id of activity</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

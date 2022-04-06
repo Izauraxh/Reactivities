@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+using System.Reflection;
 using API.Extensions;
 using Application.Activities;
 using FluentValidation.AspNetCore;
@@ -28,8 +31,13 @@ namespace API
                 config.RegisterValidatorsFromAssemblyContaining<Create>();
             
             });
+            services.AddSwaggerGen(options => {
+                var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+            });
             services.AddApplicationsServices(_configuration);
         }
+        
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -38,6 +46,7 @@ namespace API
             if (env.IsDevelopment())
             {             
                 app.UseSwagger();
+                
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
             }
 
