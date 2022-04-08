@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.Activities;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -25,7 +26,7 @@ namespace API.Controllers
         /// Get an activity with id 
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns></returns>        
         [HttpGet("{id}")]
         public async Task<IActionResult> GetActivity(Guid id)
         {     

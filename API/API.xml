@@ -15,7 +15,7 @@
             Get an activity with id 
             </summary>
             <param name="id"></param>
-            <returns></returns>
+            <returns></returns>        
         </member>
         <member name="M:API.Controllers.ActivitiesController.CreateAcitivity(Domain.Activity)">
             <summary>
@@ -38,6 +38,41 @@
             </summary>
             <param name="id">Id of activity</param>
             <returns></returns>
+        </member>
+        <member name="P:API.DTOs.LoginDto.Email">
+            <summary>
+            User Email
+            </summary>
+        </member>
+        <member name="P:API.DTOs.LoginDto.Password">
+            <summary>
+            User Password
+            </summary>
+        </member>
+        <member name="T:API.DTOs.RegisterDto">
+            <summary>
+            Register
+            </summary>
+        </member>
+        <member name="P:API.DTOs.UserDto.DisplayName">
+            <summary>
+            Display Name
+            </summary>
+        </member>
+        <member name="P:API.DTOs.UserDto.Token">
+            <summary>
+            Token
+            </summary>
+        </member>
+        <member name="P:API.DTOs.UserDto.UserName">
+            <summary>
+            UserName
+            </summary>
+        </member>
+        <member name="P:API.DTOs.UserDto.Image">
+            <summary>
+            Image
+            </summary>
         </member>
     </members>
 </doc>
