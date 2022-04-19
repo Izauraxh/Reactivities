@@ -41,6 +41,7 @@ namespace API
             services.AddSwaggerGen(options => {
                 var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+
             });
             services.AddApplicationsServices(_configuration);
             services.AddIdentityServices(_configuration);

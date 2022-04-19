@@ -1,5 +1,7 @@
 ﻿using Application.Activities;
 using Application.Core;
+using Application.Interfaces;
+using Infrastructure.Security;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -9,13 +11,23 @@ using Persistence;
 
 namespace API.Extensions
 {
+    /// <summary>
+    /// App 
+    /// </summary>
     public static class AplicationServiceExtensions
     {
+        /// <summary>
+        /// add aplication
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="config"></param>
+        /// <returns></returns>
         public static IServiceCollection AddApplicationsServices(this IServiceCollection services, IConfiguration config)
         {
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
+               
             });
             services.AddDbContext<DataContext>(opt =>
             {
@@ -32,6 +44,7 @@ namespace API.Extensions
 
             services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+            services.AddScoped<IUserAccessor,UserAccessor>();
             return services;
         }
     }
