@@ -39,6 +39,13 @@
             <param name="id">Id of activity</param>
             <returns></returns>
         </member>
+        <member name="M:API.Controllers.ActivitiesController.Attend(System.Guid)">
+            <summary>
+            Update Attendance
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="P:API.DTOs.LoginDto.Email">
             <summary>
             User Email

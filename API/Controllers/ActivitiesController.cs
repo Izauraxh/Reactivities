@@ -30,8 +30,8 @@ namespace API.Controllers
         /// <returns></returns>        
         [HttpGet("{id}")]
         public async Task<IActionResult> GetActivity(Guid id)
-        {     
-             return HandleResult(await Mediator.Send(new Details.Query { Id = id }));
+        {
+            return HandleResult(await Mediator.Send(new Details.Query { Id = id }));
         }
         /// <summary>
         /// Creates a new activity
@@ -49,6 +49,7 @@ namespace API.Controllers
         /// <param name="id"></param>
         /// <param name="activity"></param>
         /// <returns></returns>
+        [Authorize(Policy= "IsActivityHost")]
         [HttpPut("{id}")]
         public async Task<IActionResult> EditActivity(Guid id, Activity activity)
         {
@@ -60,11 +61,23 @@ namespace API.Controllers
         /// </summary>
         /// <param name="id">Id of activity</param>
         /// <returns></returns>
+        [Authorize(Policy = "IsActivityHost")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteActivity(Guid id)
         {
 
             return HandleResult(await Mediator.Send(new Delete.Command { Id = id }));
+        }
+
+        /// <summary>
+        /// Update Attendance
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost("{id}/attend")]
+        public async Task<IActionResult> Attend(Guid id)
+        {
+            return HandleResult(await Mediator.Send(new UpdateAttendance.Command { Id = id }));
         }
 
     }
