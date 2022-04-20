@@ -71,7 +71,7 @@
             Token
             </summary>
         </member>
-        <member name="P:API.DTOs.UserDto.UserName">
+        <member name="P:API.DTOs.UserDto.Username">
             <summary>
             UserName
             </summary>
