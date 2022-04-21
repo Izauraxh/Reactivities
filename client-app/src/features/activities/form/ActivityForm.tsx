@@ -19,7 +19,7 @@ export default observer(function ActivityForm() {
 
     const { activityStore } = useStore();
     const history=useHistory();
-    const {createActivity, updateActivity, loading, loadActivity, loadingInitial } = activityStore;
+    const {createActivity, updateActivity, loadActivity, loadingInitial } = activityStore;
     const { id } = useParams<{ id: string }>();
     const [activity, setActivity] = useState<ActivityFormValues>(new ActivityFormValues());
  const validationSchema= Yup.object(

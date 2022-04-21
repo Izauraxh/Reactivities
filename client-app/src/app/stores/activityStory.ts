@@ -1,7 +1,5 @@
 import { format } from "date-fns";
 import { makeAutoObservable, runInAction } from "mobx";
-import { objectPrototype } from "mobx/dist/internal";
-import { date } from "yup";
 import agent from "../api/agent";
 import { Activity, ActivityFormValues } from "../models/activity";
 import { Profile } from "../models/profile";
