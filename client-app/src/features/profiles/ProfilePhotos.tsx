@@ -11,6 +11,8 @@ interface Props {
 export default observer(function ProfilePhotos({ profile }: Props) {
     const { profileStore: { isCurrentUser, uploadPhoto, uploading ,loading, setMainPhoto} } = useStore();
     const [addPhotoMode, setAddPhotoMode] = useState(false);
+    const [target,setTarget]= useState('');
+    
     function handlePhotoUpload(file: Blob) {
         uploadPhoto(file).then(() => setAddPhotoMode(false))
     }
@@ -35,7 +37,14 @@ export default observer(function ProfilePhotos({ profile }: Props) {
                                     <Image src={photo.url} />
                                     {isCurrentUser&& (
                                         <Button.Group fluid widths={2}>
-                                            <Button/>
+                                            <Button
+                                            basic 
+                                            color='green'
+                                            content='Main'
+                                            name={photo.id}
+                                            disabled={photo.isMain}
+                                            onClick={e=>}
+                                            />
 
                                         </Button.Group>
                                     )}
