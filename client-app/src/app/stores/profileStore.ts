@@ -14,7 +14,6 @@ export default class ProfileStore {
     get isCurrentUser() {
         if (store.userStore.user && this.profile) {
             return store.userStore.user.username === this.profile.username;
-
         }
     }
 
@@ -66,6 +65,24 @@ export default class ProfileStore {
                    this.loading=false;
                }
            })
+        }
+        catch(error){
+            console.log(error);
+            runInAction(() => this.loading = false);
+        }
+
+    }
+    deletePhoto = async (photo : Photo)=> {
+        this.loading=true;
+        try{
+          
+            await agent.Profiles.deletePhoto(photo.id);
+            runInAction(()=>{
+                if(this.profile){
+                    this.profile.photos=this.profile.photos?.filter(p =>p.id !== photo.id);
+                    this.loading=false;
+                }
+            })
         }
         catch(error){
             console.log(error);
