@@ -1,40 +1,30 @@
-import React, { useState } from "react";
-import { Button, Grid, Header, Input, Label, Tab } from "semantic-ui-react";
-import MyTextArea from "../../app/common/form/MyTextArea";
-import MyTextInput from "../../app/common/form/MyTextInput";
-import { Profile } from "../../app/models/profile";
+import React, { useState } from 'react';
 import { useStore } from "../../app/stores/store";
-interface Props {
-    profile: Profile;
-}
-export default function ProfileAbout({profile}:Props){
-    const {profileStore:{isCurrentUser}}=useStore();
-    const [addEditMode, setAddEditMode] = useState(false);
-    return(
+import { Button, Grid, Header, Tab } from "semantic-ui-react";
+import ProfileEditForm from "./ProfileEditForm";
+import { observer } from 'mobx-react-lite';
+export default observer(function ProfileAbout() {
+    const { profileStore } = useStore();
+    const { isCurrentUser, profile } = profileStore;
+    const [editMode, setEditMode] = useState(false);
+    return (
         <Tab.Pane>
-        <Grid>
-        <Grid.Column width={16}>
-                    <Header floated='left' icon='bio' content='About' />
+            <Grid>
+                <Grid.Column width='16'>
+                    <Header floated='left' icon='user' content={`About ${profile?.displayName}`} />
                     {isCurrentUser && (
-                        <Button floated="right" basic
-                            content={addEditMode ? 'Cancel' : 'Edit'}
-                            onClick={() => setAddEditMode(!addEditMode)}
-                        />
-                    )}
+                        <Button floated = 'right'
+                            basic
+                            content = { editMode? 'Cancel': 'Edit Profile' }
+                            onClick = { () => setEditMode(!editMode) }
+                         />
+)}
                 </Grid.Column>
-                <Grid.Column width={16}>
-                {addEditMode ? (<>
-                <MyTextInput name="displayname" label="Display Name" type="text" placeholder={profile.displayName}/>
-                <MyTextArea name="bio" rows={5} placeholder={profile.bio || 'bio'} /> 
-                </>
-                ) :
-                <Label>Display</Label>}
+                <Grid.Column width='16'>
+                    {editMode ? <ProfileEditForm setEditMode={setEditMode} /> :
+                        <span style={{ whiteSpace: 'pre-wrap' }}>{profile?.bio}</span>}
                 </Grid.Column>
-
-        </Grid>
-         
+            </Grid>
         </Tab.Pane>
-      
-    
     )
-}
+})
