@@ -22,10 +22,16 @@ export default class CommentStore{
             .build();
             this.hubConnection.start().catch(error => console.log('Error establishing the connection :' , error));
             this.hubConnection.on('LoadComments', (comments: ChatComment[])=> {
+                comments.forEach(comment => {
+                    comment.createdAt = new Date(comment.createdAt + 'Z')
+                })
                 runInAction(()=>this.comments = comments);
             })
             this.hubConnection.on('ReceiveComment', (comment : ChatComment)=>{
-                runInAction(()=> this.comments.push(comment));
+                runInAction(()=>{
+                    comment.createdAt = new Date(comment.createdAt)
+                    this.comments.unshift(comment);
+                }) 
             } )
 
         }
@@ -37,5 +43,13 @@ export default class CommentStore{
     clearComments = () =>{
         this.comments = [];
         this.stopHubConnection();
+    }
+    addComment = async (values: any) => {
+        values.activityId = store.activityStore.selectedactivity?.id;
+        try {
+            await this.hubConnection?.invoke('SendComment', values);
+        } catch (error) {
+            console.log(error);
+        }
     }
 }

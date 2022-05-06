@@ -4,4 +4,5 @@ export interface ChatComment{
     body: string;
     username: string;
     image: string;
+    displayName: string;
 }
