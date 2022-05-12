@@ -13,7 +13,7 @@ const sleep = (delay: number) => {
     })
 }
 
-axios.defaults.baseURL = 'https://localhost:44390/api';//'https://localhost:44390/api';
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;//'https://localhost:44390/api';
 axios.interceptors.request.use(config => {
     const token = store.commonStore.token;
     if (token) config.headers!.Authorization = `Bearer ${token}`;
