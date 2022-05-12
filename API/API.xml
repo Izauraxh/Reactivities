@@ -4,7 +4,7 @@
         <name>API</name>
     </assembly>
     <members>
-        <member name="M:API.Controllers.ActivitiesController.GetActivities(Application.Core.PagingParams)">
+        <member name="M:API.Controllers.ActivitiesController.GetActivities(Application.Activities.ActivityParams)">
             <summary>
             Gets all activities
             </summary>
