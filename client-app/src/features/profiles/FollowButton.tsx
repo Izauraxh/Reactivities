@@ -9,7 +9,7 @@ interface Props {
 
 export default observer (  function FollowButton ({profile}: Props){
     const {profileStore, userStore} = useStore();
-    const {updateFollowing, loading}= profileStore;
+    const {updateFollowing}= profileStore;
     if(userStore.user?.username===profile.username) return null;
     function handleFollow(e: SyntheticEvent, username:string){
         e.preventDefault();
