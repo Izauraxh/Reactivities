@@ -39,17 +39,26 @@ export default class UserStore {
            console.log(error);
           }
     }
-    register = async(creds : UserFormValues) =>
-    {
+    // register = async(creds : UserFormValues) =>
+    // {
+    //     try {
+    //         const user = await agent.Account.register(creds);
+    //         store.commonStore.setToken(user.token);
+    //         runInAction(()=> this.user = user);          
+    //         history.push('/activities');
+    //         store.modalStore.closeModal();
+    //     }
+    //     catch (error){
+    //       throw error;
+    //     }
+    // }
+    register = async (creds: UserFormValues) => {
         try {
-            const user = await agent.Account.register(creds);
-            store.commonStore.setToken(user.token);
-            runInAction(()=> this.user = user);          
-            history.push('/activities');
+            await agent.Account.register(creds);
+            history.push(`/account/registerSuccess?email=${creds.email}`);
             store.modalStore.closeModal();
-        }
-        catch (error){
-          throw error;
+        } catch (error) {
+            throw error;
         }
     }
     setImage =  (image : string) =>{
